@@ -1,7 +1,9 @@
+import Navbar from "./components/Navbar";
+
 function App() {
   return (
     <>
-      <h1 className="text-5xl">MerchMart</h1>
+      <Navbar></Navbar>
     </>
   );
 }
