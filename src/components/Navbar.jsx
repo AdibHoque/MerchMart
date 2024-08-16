@@ -14,6 +14,7 @@ export default function Navbar() {
     const form = new FormData(e.currentTarget);
     const email = form.get("email");
     const password = form.get("password");
+
     logIn(email, password);
   };
   const handleRegister = (e) => {
@@ -47,7 +48,7 @@ export default function Navbar() {
                   data-tip={user.email}
                 >
                   <div className="avatar">
-                    <div className="w-8 rounded-full">
+                    <div className="w-10 rounded-full">
                       <img src={user.photoURL} />
                     </div>
                   </div>
