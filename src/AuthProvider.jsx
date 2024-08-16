@@ -194,6 +194,8 @@ export default function AuthProvider({children}) {
     signInWithPopup(auth, provider)
       .then((result) => {
         console.log(result);
+        document.getElementById("my_modal_3").close();
+        document.getElementById("my_modal_2").close();
         MySwal.fire({
           position: "center",
           icon: "success",
