@@ -9,14 +9,15 @@ export default function Cards() {
   const [sort, setSort] = useState("");
   const [category, setCategory] = useState("");
   const [priceRange, setPriceRange] = useState("");
+  const [brand, setBrand] = useState("");
 
   useEffect(() => {
     fetch(
-      `http://localhost:5000/products?page=${currentP}&&sort=${sort}&&category=${category}&&priceRange=${priceRange}`
+      `http://localhost:5000/products?page=${currentP}&&sort=${sort}&&category=${category}&&priceRange=${priceRange}&&brand=${brand}`
     )
       .then((data) => data.json())
       .then((data) => setData(data));
-  }, [currentP, sort, category, priceRange]);
+  }, [currentP, sort, category, priceRange, brand]);
 
   return (
     <div className="px-4 md:px-8 lg:px-24">
@@ -78,7 +79,10 @@ export default function Cards() {
           <option value="501-1000">$501-1000</option>
           <option value="1001-2000">$1001-2000</option>
         </select>
-        <select className="w-full max-w-xs select select-bordered">
+        <select
+          className="w-full max-w-xs select select-bordered"
+          onChange={(e) => setBrand(e.target.value)}
+        >
           <option disabled selected>
             Brand
           </option>
