@@ -13,11 +13,11 @@ export default function Cards() {
 
   useEffect(() => {
     fetch(
-      `http://localhost:5000/products?page=${currentP}&&sort=${sort}&&category=${category}&&priceRange=${priceRange}&&brand=${brand}`
+      `http://localhost:5000/products?page=${currentP}&&sort=${sort}&&category=${category}&&priceRange=${priceRange}&&brand=${brand}&&search=${search}`
     )
       .then((data) => data.json())
       .then((data) => setData(data));
-  }, [currentP, sort, category, priceRange, brand]);
+  }, [currentP, sort, category, priceRange, brand, search]);
 
   return (
     <div className="px-4 md:px-8 lg:px-24">
