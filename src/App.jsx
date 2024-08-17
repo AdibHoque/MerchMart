@@ -1,4 +1,5 @@
 import Cards from "./components/Cards";
+import Footer from "./components/Footer";
 import Navbar from "./components/Navbar";
 
 function App() {
@@ -6,6 +7,7 @@ function App() {
     <>
       <Navbar></Navbar>
       <Cards></Cards>
+      <Footer></Footer>
     </>
   );
 }
