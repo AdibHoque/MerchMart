@@ -2,13 +2,17 @@ import {useEffect, useState} from "react";
 import Card from "./Card";
 
 export default function Cards() {
-  const [data, setData] = useState([]);
+  const [data, setData] = useState({products: []});
+  const {totalProducts, currentPage, totalPages, products} = data;
   const [search, setSearch] = useState("");
+  const [currentP, setCurrentP] = useState(1);
+
   useEffect(() => {
-    fetch("/data.json")
+    fetch(`http://localhost:5000/products?page=${currentP}`)
       .then((data) => data.json())
       .then((data) => setData(data));
-  }, []);
+  }, [currentP]);
+
   return (
     <div className="px-4 md:px-8 lg:px-24">
       <label className="flex items-center gap-2 my-2 mt-6 input input-bordered">
@@ -31,7 +35,7 @@ export default function Cards() {
           />
         </svg>
       </label>
-      <div className="flex gap-4">
+      <div className="flex gap-4 mt-4">
         <select className="w-full max-w-xs select select-bordered">
           <option disabled selected>
             Sort
@@ -72,9 +76,30 @@ export default function Cards() {
         </select>
       </div>
       <div className="grid items-stretch justify-center grid-cols-1 gap-4 mt-6 md:grid-cols-2 lg:grid-cols-3 ">
-        {data.map((d) => (
+        {products.map((d) => (
           <Card key={d.id} product={d}></Card>
         ))}
+      </div>
+      <div className="flex justify-center items-center my-6">
+        <button
+          className="bg-black btn btn-sm text-white"
+          onClick={() =>
+            currentP > 1 ? setCurrentP(currentP - 1) : setCurrentP(currentP)
+          }
+        >
+          Previous
+        </button>
+        <p className="mx-8">
+          Page {currentPage} of {totalPages}
+        </p>
+        <button
+          className="bg-black text-white btn btn-sm"
+          onClick={() =>
+            currentP < 5 ? setCurrentP(currentP + 1) : setCurrentP(currentP)
+          }
+        >
+          Next
+        </button>
       </div>
     </div>
   );
