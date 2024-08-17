@@ -6,12 +6,13 @@ export default function Cards() {
   const {totalProducts, currentPage, totalPages, products} = data;
   const [search, setSearch] = useState("");
   const [currentP, setCurrentP] = useState(1);
+  const [sort, setSort] = useState("");
 
   useEffect(() => {
-    fetch(`http://localhost:5000/products?page=${currentP}`)
+    fetch(`http://localhost:5000/products?page=${currentP}&&sort=${sort}`)
       .then((data) => data.json())
       .then((data) => setData(data));
-  }, [currentP]);
+  }, [currentP, sort]);
 
   return (
     <div className="px-4 md:px-8 lg:px-24">
@@ -36,13 +37,16 @@ export default function Cards() {
         </svg>
       </label>
       <div className="flex gap-4 mt-4">
-        <select className="w-full max-w-xs select select-bordered">
+        <select
+          className="w-full max-w-xs select select-bordered"
+          onChange={(e) => setSort(e.target.value)}
+        >
           <option disabled selected>
             Sort
           </option>
-          <option>Price: Low to High</option>
-          <option>Price: High to Low</option>
-          <option>Date Added: Newest first</option>
+          <option value="priceAsc">Price: Low to High</option>
+          <option value="priceDesc">Price: High to Low</option>
+          <option value="newest">Date Added: Newest first</option>
         </select>
         <select className="w-full max-w-xs select select-bordered">
           <option disabled selected>
@@ -80,26 +84,33 @@ export default function Cards() {
           <Card key={d.id} product={d}></Card>
         ))}
       </div>
-      <div className="flex justify-center items-center my-6">
-        <button
-          className="bg-black btn btn-sm text-white"
-          onClick={() =>
-            currentP > 1 ? setCurrentP(currentP - 1) : setCurrentP(currentP)
-          }
-        >
-          Previous
-        </button>
-        <p className="mx-8">
-          Page {currentPage} of {totalPages}
-        </p>
-        <button
-          className="bg-black text-white btn btn-sm"
-          onClick={() =>
-            currentP < 5 ? setCurrentP(currentP + 1) : setCurrentP(currentP)
-          }
-        >
-          Next
-        </button>
+      <div className="flex flex-col justify-center items-center">
+        <h2 className="mt-4">
+          Showing {(currentPage - 1) * 9 + 1}-
+          {currentPage * 9 > totalProducts ? totalProducts : currentPage * 9} of{" "}
+          {totalProducts} Results
+        </h2>
+        <div className="flex justify-center items-center my-6">
+          <button
+            className="bg-black btn btn-sm text-white"
+            onClick={() =>
+              currentP > 1 ? setCurrentP(currentP - 1) : setCurrentP(currentP)
+            }
+          >
+            Previous
+          </button>
+          <p className="mx-8">
+            Page {currentPage} of {totalPages}
+          </p>
+          <button
+            className="bg-black text-white btn btn-sm"
+            onClick={() =>
+              currentP < 5 ? setCurrentP(currentP + 1) : setCurrentP(currentP)
+            }
+          >
+            Next
+          </button>
+        </div>
       </div>
     </div>
   );
