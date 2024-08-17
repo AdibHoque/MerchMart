@@ -5,10 +5,7 @@ export default function Card({product}) {
     <>
       <div className="w-full bg-black shadow-xl md:max-w-96 card">
         <figure>
-          <img
-            src="https://img.daisyui.com/images/stock/photo-1606107557195-0e29a4b5b4aa.webp"
-            alt={product.productName}
-          />
+          <img src={product.productImage} alt={product.productName} />
         </figure>
         <div className="text-white card-body">
           <p className="flex gap-1 text-sm text-end opacity-70">

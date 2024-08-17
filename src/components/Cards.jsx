@@ -13,7 +13,7 @@ export default function Cards() {
 
   useEffect(() => {
     fetch(
-      `http://localhost:5000/products?page=${currentP}&&sort=${sort}&&category=${category}&&priceRange=${priceRange}&&brand=${brand}&&search=${search}`
+      `https://merch-mart-backend.vercel.app/products?page=${currentP}&&sort=${sort}&&category=${category}&&priceRange=${priceRange}&&brand=${brand}&&search=${search}`
     )
       .then((data) => data.json())
       .then((data) => setData(data));
