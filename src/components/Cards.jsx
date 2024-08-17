@@ -7,12 +7,15 @@ export default function Cards() {
   const [search, setSearch] = useState("");
   const [currentP, setCurrentP] = useState(1);
   const [sort, setSort] = useState("");
+  const [category, setCategory] = useState("");
 
   useEffect(() => {
-    fetch(`http://localhost:5000/products?page=${currentP}&&sort=${sort}`)
+    fetch(
+      `http://localhost:5000/products?page=${currentP}&&sort=${sort}&&category=${category}`
+    )
       .then((data) => data.json())
       .then((data) => setData(data));
-  }, [currentP, sort]);
+  }, [currentP, sort, category]);
 
   return (
     <div className="px-4 md:px-8 lg:px-24">
@@ -48,15 +51,18 @@ export default function Cards() {
           <option value="priceDesc">Price: High to Low</option>
           <option value="newest">Date Added: Newest first</option>
         </select>
-        <select className="w-full max-w-xs select select-bordered">
+        <select
+          className="w-full max-w-xs select select-bordered"
+          onChange={(e) => setCategory(e.target.value)}
+        >
           <option disabled selected>
             Category
           </option>
           <option>Electronics</option>
           <option>Wearables</option>
           <option>Computers</option>
-          <option>Home Automation</option>
-          <option>Computer Accessories</option>
+          <option value="Home-Automation">Home Automation</option>
+          <option value="Computer-Accessories">Computer Accessories</option>
         </select>
         <select className="w-full max-w-xs select select-bordered">
           <option disabled selected>
