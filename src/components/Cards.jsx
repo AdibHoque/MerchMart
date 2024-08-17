@@ -8,14 +8,15 @@ export default function Cards() {
   const [currentP, setCurrentP] = useState(1);
   const [sort, setSort] = useState("");
   const [category, setCategory] = useState("");
+  const [priceRange, setPriceRange] = useState("");
 
   useEffect(() => {
     fetch(
-      `http://localhost:5000/products?page=${currentP}&&sort=${sort}&&category=${category}`
+      `http://localhost:5000/products?page=${currentP}&&sort=${sort}&&category=${category}&&priceRange=${priceRange}`
     )
       .then((data) => data.json())
       .then((data) => setData(data));
-  }, [currentP, sort, category]);
+  }, [currentP, sort, category, priceRange]);
 
   return (
     <div className="px-4 md:px-8 lg:px-24">
@@ -64,15 +65,18 @@ export default function Cards() {
           <option value="Home-Automation">Home Automation</option>
           <option value="Computer-Accessories">Computer Accessories</option>
         </select>
-        <select className="w-full max-w-xs select select-bordered">
+        <select
+          className="w-full max-w-xs select select-bordered"
+          onChange={(e) => setPriceRange(e.target.value)}
+        >
           <option disabled selected>
             Price
           </option>
-          <option>1-50</option>
-          <option>51-200</option>
-          <option>201-500</option>
-          <option>501-1000</option>
-          <option>1001-2000</option>
+          <option value="1-50">$1-50</option>
+          <option value="51-200">$51-200</option>
+          <option value="201-500">$201-500</option>
+          <option value="501-1000">$501-1000</option>
+          <option value="1001-2000">$1001-2000</option>
         </select>
         <select className="w-full max-w-xs select select-bordered">
           <option disabled selected>
